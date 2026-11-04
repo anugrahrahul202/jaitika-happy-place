@@ -1,0 +1,662 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100e24">
+<title>Jaitika's Happy Place 🌷</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+  --gold:#f6d99b;
+  --pink:#f6b9d0;
+  --lavender:#c8b7ff;
+  --white:#fff8f5;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  min-height:100vh;
+  background:#100e24;
+  color:var(--white);
+  font-family:'Poppins',sans-serif;
+  overflow-x:hidden;
+}
+
+button { font:inherit; cursor:pointer; }
+
+.scene {
+  min-height:100svh;
+  display:none;
+  position:relative;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:55px 20px;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 100%,#49345d,transparent 55%),
+    radial-gradient(ellipse at 15% 15%,#252b51,transparent 50%),
+    linear-gradient(160deg,#10142b,#19112c 65%,#30203e);
+}
+
+.scene.active {
+  display:flex;
+  animation:appear 1s ease both;
+}
+
+@keyframes appear {
+  from {opacity:0;transform:translateY(15px)}
+  to {opacity:1;transform:translateY(0)}
+}
+
+.content {
+  width:min(100%,580px);
+  position:relative;
+  z-index:3;
+}
+
+h1,h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-weight:500;
+}
+
+h1 {
+  font-size:clamp(3rem,12vw,5.5rem);
+  color:var(--gold);
+  margin:15px;
+}
+
+h2 {
+  font-size:clamp(2.2rem,9vw,3.5rem);
+  color:var(--pink);
+  line-height:1.1;
+}
+
+p {
+  line-height:1.9;
+  color:#e4dced;
+  font-size:.95rem;
+}
+
+.eyebrow {
+  color:var(--gold);
+  letter-spacing:4px;
+  font-size:.7rem;
+  text-transform:uppercase;
+}
+
+.primary {
+  background:linear-gradient(120deg,#f7dba9,#f3b8d2);
+  color:#21152d;
+  border:0;
+  border-radius:40px;
+  padding:14px 27px;
+  margin-top:25px;
+  box-shadow:0 0 30px #f6d99b33;
+  transition:.3s;
+}
+
+.primary:hover { transform:translateY(-4px); }
+
+.secondary {
+  background:#ffffff0b;
+  color:white;
+  border:1px solid #ffffff44;
+  border-radius:30px;
+  padding:12px 20px;
+  margin:8px;
+}
+
+button:focus-visible {
+  outline:2px solid var(--gold);
+  outline-offset:4px;
+}
+
+.moon {
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  background:#fff0c9;
+  margin:0 auto 30px;
+  box-shadow:0 0 40px #fff0c9aa,0 0 100px #e9c9ff55;
+  position:relative;
+}
+
+.moon:after {
+  content:"";
+  position:absolute;
+  left:28px;
+  top:-13px;
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  background:#17132e;
+}
+
+.stars,.fireflies {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  overflow:hidden;
+}
+
+.star {
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:white;
+  box-shadow:0 0 10px white;
+  animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from {opacity:.2;transform:scale(.5)}
+  to {opacity:1;transform:scale(1.5)}
+}
+
+.firefly {
+  position:absolute;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#ffe6a6;
+  box-shadow:0 0 15px 4px #ffe6a655;
+  animation:float 7s infinite ease-in-out alternate;
+}
+
+@keyframes float {
+  to {transform:translate(35px,-65px)}
+}
+
+.card {
+  background:#ffffff0c;
+  border:1px solid #ffffff28;
+  border-radius:24px;
+  padding:25px;
+  backdrop-filter:blur(12px);
+  margin:25px 0;
+}
+
+.orb {
+  width:145px;
+  height:145px;
+  border-radius:50%;
+  margin:35px auto;
+  display:grid;
+  place-items:center;
+  color:#2a1839;
+  background:radial-gradient(circle,#f8c9dc,#bca5f5);
+  box-shadow:0 0 55px #d8a8ff55;
+  animation:breathe 8s ease-in-out infinite;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;
+}
+
+@keyframes breathe {
+  0%,100% {transform:scale(.75)}
+  50% {transform:scale(1.18)}
+}
+
+.star-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:25px 0;
+}
+
+.star-button {
+  aspect-ratio:1;
+  border-radius:20px;
+  background:#ffffff0c;
+  border:1px solid #ffffff33;
+  color:var(--gold);
+  font-size:2rem;
+}
+
+.message {
+  min-height:75px;
+  color:var(--gold);
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;
+}
+
+.jar {
+  font-size:95px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.jar:hover { transform:rotate(-10deg) scale(1.1); }
+
+.letter {
+  background:linear-gradient(145deg,#fff0dc,#f5d8e7);
+  color:#493049;
+  padding:28px 24px;
+  border-radius:9px;
+  box-shadow:0 15px 60px #0006;
+  transform:rotate(-1deg);
+}
+
+.letter p { color:#574054; }
+
+.signature {
+  font:2rem 'Cormorant Garamond',serif;
+  color:#a65f85;
+}
+
+.bouquet-container {
+  width:min(92vw,520px);
+  margin:25px auto 10px;
+  padding:9px;
+  border:1px solid #f6d99b99;
+  border-radius:28px;
+  background:linear-gradient(145deg,#f6d99b44,#c8b7ff44);
+  box-shadow:0 0 40px #f6b9d055,0 0 90px #c8b7ff33;
+  animation:bouquetFloat 5s ease-in-out infinite;
+  overflow:hidden;
+}
+
+.bouquet-container iframe {
+  display:block;
+  width:100%;
+  height:650px;
+  border:0;
+  border-radius:20px;
+  background:transparent;
+}
+
+@keyframes bouquetFloat {
+  0%,100% {transform:translateY(0)}
+  50% {transform:translateY(-9px)}
+}
+
+.name {
+  font:clamp(4rem,15vw,6.5rem) 'Cormorant Garamond',serif;
+  color:var(--gold);
+  text-shadow:0 0 30px #f6b9d0;
+  animation:glow 3s infinite alternate;
+}
+
+@keyframes glow {
+  to {text-shadow:0 0 55px #ffb7db,0 0 90px #d5aaff}
+}
+
+.progress {
+  position:fixed;
+  top:0;
+  left:0;
+  height:3px;
+  width:0;
+  background:linear-gradient(90deg,var(--pink),var(--gold));
+  z-index:10;
+  transition:.5s;
+}
+
+.music-note {
+  position:fixed;
+  bottom:15px;
+  right:15px;
+  z-index:20;
+  color:#fff;
+  background:#ffffff16;
+  border:1px solid #ffffff44;
+  padding:9px 13px;
+  border-radius:30px;
+  font-size:12px;
+  backdrop-filter:blur(10px);
+  cursor:pointer;
+}
+
+@media(max-width:450px) {
+  .scene {padding:45px 17px}
+  .card {padding:19px}
+  .bouquet-container iframe {height:min(78vh,650px);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="backgroundMusic" preload="auto">
+  <source src="background.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music-note" id="musicStatus" role="button" tabindex="0">
+  ♫ Music awaits
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="stars" id="stars"></div>
+<div class="fireflies" id="fireflies"></div>
+
+<!-- SCENE 1 -->
+<section class="scene active" id="s1">
+<div class="content">
+  <div class="moon"></div>
+  <div class="eyebrow">A tiny escape from the world</div>
+  <h1>Your Happy Place</h1>
+  <p>Somewhere between a thousand responsibilities and a million thoughts, there's a little place where you can simply be yourself.</p>
+  <p>Tonight, this little place is yours. 🌷</p>
+  <button class="primary" onclick="enterWorld()">Enter your little world ✨</button>
+  <p class="small">A little peace, just for you.</p>
+</div>
+</section>
+
+<!-- SCENE 2 -->
+<section class="scene" id="s2">
+<div class="content">
+  <div class="eyebrow">A gentle reminder</div>
+  <h2>Hey, you...</h2>
+  <div class="card">
+    <p>Classes. Notes. Assignments. Extra classes. Meetings. Deadlines. And probably another deadline hiding somewhere. 😂</p>
+    <p>I know you've got a lot going on. But you don't have to carry everything all at once.</p>
+    <h2 style="font-size:2rem">You've done enough for today. ❤️</h2>
+  </div>
+  <p>For the next few minutes, you have absolutely no homework here.</p>
+  <button class="primary" onclick="go(3)">Let's take a breath</button>
+</div>
+</section>
+
+<!-- SCENE 3 -->
+<section class="scene" id="s3">
+<div class="content">
+  <div class="eyebrow">A little breathing space</div>
+  <h2>Just breathe...</h2>
+  <p>Follow the glowing flower. There's nowhere else you need to be.</p>
+  <div class="orb" id="orb">Breathe in</div>
+  <p id="breathHint">Slowly breathe in as the flower grows.</p>
+  <button class="secondary" onclick="toggleBreath()" id="breathBtn">Pause guide</button>
+  <br>
+  <button class="primary" onclick="go(4)">I feel a little lighter ✨</button>
+</div>
+</section>
+
+<!-- SCENE 4 -->
+<section class="scene" id="s4">
+<div class="content">
+  <div class="eyebrow">A tiny game for a tired mind</div>
+  <h2>Catch happiness</h2>
+  <p>Tap any star. Each one is hiding a tiny message.</p>
+  <div class="star-grid">
+    <button class="star-button" onclick="reveal(this)">✦</button>
+    <button class="star-button" onclick="reveal(this)">✧</button>
+    <button class="star-button" onclick="reveal(this)">✦</button>
+    <button class="star-button" onclick="reveal(this)">✧</button>
+    <button class="star-button" onclick="reveal(this)">✦</button>
+    <button class="star-button" onclick="reveal(this)">✧</button>
+  </div>
+  <div class="message" id="starMessage">A little happiness is waiting...</div>
+  <button class="primary" onclick="go(5)">Open your happiness jar</button>
+</div>
+</section>
+
+<!-- SCENE 5 -->
+<section class="scene" id="s5">
+<div class="content">
+  <div class="eyebrow">Something you deserve to hear</div>
+  <h2>A jar full of reminders</h2>
+  <p>Tap the jar. It has a few things you might need to hear.</p>
+  <div class="card">
+    <div class="jar" onclick="openJar()">🏺</div>
+    <div class="message" id="jarMessage">I promise I don't give homework. 😂</div>
+    <button class="secondary" onclick="openJar()">Another reminder</button>
+  </div>
+  <button class="primary" onclick="go(6)">One last surprise 💗</button>
+</div>
+</section>
+
+<!-- SCENE 6 -->
+<section class="scene" id="s6">
+<div class="content">
+  <div class="eyebrow">A little note, just for you</div>
+  <h2>Before you go...</h2>
+  <div class="letter">
+    <p>Hey,</p>
+    <p>I hope you know that you don't have to be strong, cheerful, or productive every single day.</p>
+    <p>It's okay to feel tired. It's okay to take a break. And it's okay to put the world on mute for a while.</p>
+    <p>I hope tomorrow brings you lighter moments, unexpected smiles, good news and reasons to feel proud of yourself.</p>
+    <p>Even the brightest stars need a little darkness to rest. ✨</p>
+    <p>Take care of yourself, okay? The world can wait a little.</p>
+    <div class="signature">With a little kindness ♡</div>
+  </div>
+  <button class="primary" onclick="go(7)">Wait... one more thing</button>
+</div>
+</section>
+
+<!-- SCENE 7: JAITIKA'S FLOWER BOUQUET -->
+<section class="scene" id="s7">
+<div class="content">
+  <div class="eyebrow">A little world made for someone special</div>
+
+  <div class="bouquet-container">
+    <iframe
+      src="https://digibouquet.vercel.app/bouquet/cf345898-f2b3-4b56-b6e2-40173f2e070c"
+      title="A little bouquet for Jaitika"
+      loading="lazy"
+      allow="clipboard-write; web-share">
+    </iframe>
+  </div>
+
+  <div class="name">Jaitika</div>
+  <h2 style="font-size:2rem">A little happiness, just for you. 🌷</h2>
+  <p>Even the busiest days deserve a little beauty. Don't forget to take care of the person who deserves it most — you.</p>
+  <div style="font-size:2.5rem">🌷 ✨ 💗 ✨ 🌷</div>
+  <button class="secondary" onclick="go(1)">Visit your happy place again ↻</button>
+</div>
+</section>
+
+<script>
+
+/* MUSIC */
+const music = document.getElementById("backgroundMusic");
+const musicStatus = document.getElementById("musicStatus");
+
+const MUSIC_START = 262; // 4 minutes 22 seconds
+let musicStarted = false;
+let musicSeeking = false;
+
+async function startMusic() {
+  try {
+    music.volume = 0.35;
+
+    // Wait until browser has loaded audio metadata
+    if (music.readyState < 1) {
+      musicStatus.textContent = "♫ Loading music...";
+
+      await new Promise((resolve, reject) => {
+        music.addEventListener("loadedmetadata", resolve, {once:true});
+        music.addEventListener("error", reject, {once:true});
+        music.load();
+      });
+    }
+
+    // Start at 4:22
+    if (!musicStarted) {
+      music.currentTime = MUSIC_START;
+    }
+
+    await music.play();
+
+    musicStarted = true;
+    musicStatus.textContent = "♫ Playing Aashiqana";
+
+  } catch(error) {
+    musicStarted = false;
+    musicStatus.textContent = "♫ Tap here to retry music";
+    console.error("Music playback error:", error);
+  }
+}
+
+// Loop only the requested section: 4:22 to the end
+music.addEventListener("timeupdate", () => {
+  if (music.currentTime >= music.duration - 0.25) {
+    music.currentTime = MUSIC_START;
+  }
+});
+
+// Update status when playback starts
+music.addEventListener("playing", () => {
+  musicStarted = true;
+  musicStatus.textContent = "♫ Playing Aashiqana";
+});
+
+// Show an error if the audio file cannot be found
+music.addEventListener("error", () => {
+  musicStarted = false;
+  musicStatus.textContent = "♫ Audio file not found";
+  console.error("Please keep background.mp3 in the same folder as index.html.");
+});
+
+// Click music indicator to retry
+musicStatus.addEventListener("click", startMusic);
+
+musicStatus.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    startMusic();
+  }
+});
+
+function enterWorld() {
+  startMusic();
+  go(2);
+}
+
+/* SCENE NAVIGATION */
+let current = 1;
+
+function go(n) {
+  document.getElementById("s"+current).classList.remove("active");
+
+  current = n;
+
+  document.getElementById("s"+n).classList.add("active");
+
+  document.getElementById("progress").style.width =
+    (n/7*100)+"%";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+
+  if(n===3) startBreathing();
+  else stopBreathing();
+}
+
+/* STAR GAME */
+const starMessages = [
+  "You are allowed to have a slow day. 🌷",
+  "Your effort matters, even when nobody notices.",
+  "You deserve kindness, especially from yourself.",
+  "One assignment at a time. You're not a robot. 😂",
+  "You deserve a lovely day.",
+  "Don't forget that your smile looks good on you. ✨"
+];
+
+function reveal(btn) {
+  document.getElementById("starMessage").textContent =
+    starMessages[Math.floor(Math.random()*starMessages.length)];
+
+  btn.textContent = "💗";
+  btn.disabled = true;
+}
+
+/* COMPLIMENT JAR */
+const jarMessages = [
+  "You are doing better than you think. ❤️",
+  "Rest is not laziness. It's part of growing.",
+  "You don't need to earn the right to relax.",
+  "Your worth is bigger than your marks and deadlines.",
+  "Drink some water, superstar. 💧",
+  "Even your to-do list needs a holiday. 😂",
+  "You deserve a peaceful evening."
+];
+
+function openJar() {
+  document.getElementById("jarMessage").textContent =
+    jarMessages[Math.floor(Math.random()*jarMessages.length)];
+}
+
+/* BREATHING GUIDE */
+let breathing = false;
+let breathTimer;
+
+function startBreathing() {
+  stopBreathing();
+  breathing = true;
+
+  let i = 0;
+
+  const phases = [
+    ["Breathe in","Slowly breathe in.",4000],
+    ["Hold","Gently hold for a moment.",2000],
+    ["Breathe out","Slowly breathe out.",4000],
+    ["Rest","Relax your shoulders.",2000]
+  ];
+
+  function tick() {
+    if(!breathing) return;
+
+    document.getElementById("orb").textContent = phases[i][0];
+    document.getElementById("breathHint").textContent = phases[i][1];
+
+    breathTimer = setTimeout(() => {
+      i = (i+1)%4;
+      tick();
+    },phases[i][2]);
+  }
+
+  document.getElementById("breathBtn").textContent = "Pause guide";
+  tick();
+}
+
+function stopBreathing() {
+  breathing = false;
+  clearTimeout(breathTimer);
+}
+
+function toggleBreath() {
+  if(breathing) {
+    stopBreathing();
+
+    document.getElementById("orb").textContent = "Rest";
+    document.getElementById("breathHint").textContent = "Take your time. No rush.";
+    document.getElementById("breathBtn").textContent = "Resume guide";
+  } else {
+    startBreathing();
+  }
+}
+
+/* ANIMATED STARS */
+for(let i=0;i<85;i++) {
+  const s = document.createElement("div");
+  s.className = "star";
+  s.style.left = Math.random()*100+"%";
+  s.style.top = Math.random()*100+"%";
+  s.style.animationDelay = Math.random()*3+"s";
+
+  document.getElementById("stars").appendChild(s);
+}
+
+/* FIREFLIES */
+for(let i=0;i<22;i++) {
+  const f = document.createElement("div");
+  f.className = "firefly";
+  f.style.left = Math.random()*100+"%";
+  f.style.top = Math.random()*100+"%";
+  f.style.animationDelay = Math.random()*5+"s";
+
+  document.getElementById("fireflies").appendChild(f);
+}
+
+</script>
+
+</body>
+</html>
